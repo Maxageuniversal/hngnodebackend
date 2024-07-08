@@ -4,6 +4,8 @@ const express = require('express');
 const router = express.Router();
 const authMiddleware = require('../middlewares/authMiddleware');
 const { User } = require('../models'); // Adjust based on your model imports
+const { Organisation } = require('../models/organisation');
+
 
 // Example protected route to get user's own record
 router.get('/api/users/:id', authMiddleware, async (req, res) => {
