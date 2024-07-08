@@ -1,6 +1,6 @@
 // src/controllers/organisationController.js
 
-const { Organisation } = require('../models');
+const { Organisation } = require('../models/user');
 
 exports.getOrganisations = async (req, res) => {
   try {
