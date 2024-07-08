@@ -1,4 +1,4 @@
-
+// APP.JS
 const cors = require('cors'); // Enable Cross-Origin Resource Sharing
 const morgan = require('morgan'); // HTTP request logger middleware
 const express = require('express');
