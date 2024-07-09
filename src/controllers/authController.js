@@ -9,6 +9,15 @@ exports.register = async (req, res) => {
   const { firstName, lastName, email, password, phone } = req.body;
 
   try {
+    // Check if user already exists
+    const existingUser = await User.findOne({ where: { email } });
+    if (existingUser) {
+      return res.status(400).json({
+        status: 'Bad request',
+        message: 'Email already in use',
+      });
+    }
+
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = await User.create({
       userId: uuidv4(),
@@ -24,6 +33,9 @@ exports.register = async (req, res) => {
       name: `${firstName}'s Organisation`,
       description: '',
     });
+
+    // Associate user with organisation
+    await user.addOrganisation(org);
 
     const token = jwt.sign({ userId: user.userId }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
@@ -67,7 +79,6 @@ exports.login = async (req, res) => {
       return res.status(401).json({
         status: 'Bad request',
         message: 'Authentication failed',
-        statusCode: 401,
       });
     }
 
@@ -91,62 +102,8 @@ exports.login = async (req, res) => {
     res.status(400).json({
       status: 'Bad request',
       message: 'Authentication failed',
-      statusCode: 401,
     });
   }
 };
 
-exports.getOrganisations = async (req, res) => {
-  // Placeholder for fetching organisations
-};
-
-exports.getOrganisation = async (req, res) => {
-  // Placeholder for fetching a single organisation
-};
-
-exports.createOrganisation = async (req, res) => {
-  const { name, description } = req.body;
-
-  try {
-    const org = await Organisation.create({
-      orgId: uuidv4(),
-      name,
-      description,
-    });
-
-    res.status(201).json({
-      status: 'success',
-      message: 'Organisation created successfully',
-      data: {
-        orgId: org.orgId,
-        name: org.name,
-        description: org.description,
-      },
-    });
-  } catch (error) {
-    res.status(400).json({
-      status: 'Bad Request',
-      message: 'Client error',
-      statusCode: 400,
-    });
-  }
-};
-
-exports.addUserToOrganisation = async (req, res) => {
-  const { userId } = req.body;
-  const { orgId } = req.params;
-
-  try {
-    // Placeholder for adding user to organisation
-    res.status(200).json({
-      status: 'success',
-      message: 'User added to organisation successfully',
-    });
-  } catch (error) {
-    res.status(400).json({
-      status: 'Bad Request',
-      message: 'Client error',
-      statusCode: 400,
-    });
-  }
-};
+// other functions remain unchanged

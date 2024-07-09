@@ -23,7 +23,9 @@
     "jest": "^29.7.0"
   },
   "jest": {
-    "setupFilesAfterEnv": ["./src/tests/setupTests.js"],
+    "setupFilesAfterEnv": [
+      "./src/tests/setupTests.js"
+    ],
     "testEnvironment": "node",
     "detectOpenHandles": true,
     "verbose": true,

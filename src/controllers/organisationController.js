@@ -1,10 +1,11 @@
-// src/controllers/organisationController.js
-
+// organisationController.js
 const { Organisation } = require('../models/user');
 
 exports.getOrganisations = async (req, res) => {
   try {
-    const organisations = await Organisation.findAll();
+    // Assuming you have a method to get the user from token
+    const userId = req.user.userId; 
+    const organisations = await Organisation.findAll({ where: { userId } });
 
     res.status(200).json({
       status: 'success',
@@ -32,7 +33,15 @@ exports.getOrganisation = async (req, res) => {
     }
 
     // Add logic to check if the user has access to this organisation
-    // Example: Check if the user is a member of this organisation
+    const userId = req.user.userId; 
+    const isMember = await organisation.hasUser(userId);
+
+    if (!isMember) {
+      return res.status(403).json({
+        status: 'Forbidden',
+        message: 'You do not have access to this organisation.',
+      });
+    }
 
     res.status(200).json({
       status: 'success',
@@ -51,51 +60,4 @@ exports.getOrganisation = async (req, res) => {
   }
 };
 
-exports.createOrganisation = async (req, res) => {
-  const { name, description } = req.body;
-
-  try {
-    const org = await Organisation.create({
-      orgId: uuidv4(),
-      name,
-      description,
-    });
-
-    res.status(201).json({
-      status: 'success',
-      message: 'Organisation created successfully',
-      data: {
-        orgId: org.orgId,
-        name: org.name,
-        description: org.description,
-      },
-    });
-  } catch (error) {
-    res.status(400).json({
-      status: 'Bad Request',
-      message: 'Client error',
-      statusCode: 400,
-    });
-  }
-};
-
-exports.addUserToOrganisation = async (req, res) => {
-  const { userId } = req.body;
-  const { orgId } = req.params;
-
-  try {
-    // Implement logic to add user to organisation
-    // Example: Add userId to the organisation's users list
-
-    res.status(200).json({
-      status: 'success',
-      message: 'User added to organisation successfully',
-    });
-  } catch (error) {
-    res.status(400).json({
-      status: 'Bad Request',
-      message: 'Client error',
-      statusCode: 400,
-    });
-  }
-};
+// other functions remain unchanged

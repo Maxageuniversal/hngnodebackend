@@ -1,8 +1,7 @@
-// auth.spec.js
 const request = require('supertest');
 const app = require('../app');
 const sequelize = require('../config/database');
-const jwt = require('jsonwebtoken'); // Ensure jwt is imported
+const jwt = require('jsonwebtoken');
 
 jest.setTimeout(60000);
 
@@ -41,7 +40,7 @@ describe('POST /auth/register', () => {
       });
 
     expect(response.statusCode).toBe(400);
-    expect(response.body).toHaveProperty('message', 'All fields are required');
+    expect(response.body).toHaveProperty('message', 'Email already in use');
   });
 });
 
@@ -67,13 +66,12 @@ describe('Token Generation', () => {
 
 describe('Organisation Access Restrictions', () => {
   it('should restrict access to organisations user does not belong to', async () => {
-    // Assumes a setup where this user is not part of the organisation
     const response = await request(app)
-      .get('/api/organisations/1') // Example org ID
+      .get('/api/organisations/1')
       .set('Authorization', `Bearer invalidToken`);
 
     expect(response.statusCode).toBe(403);
-    expect(response.body).toHaveProperty('message', 'You are not authorized to access this resource.');
+    expect(response.body).toHaveProperty('message', 'You do not have access to this organisation.');
   });
 });
 
