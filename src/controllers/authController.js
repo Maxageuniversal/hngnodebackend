@@ -1,65 +1,59 @@
-// authController.js       
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const { v4: uuidv4 } = require('uuid');
-const User = require('../models/user');
-const Organisation = require('../models/organisation');
+// src/controllers/authController.js
 
-exports.register = async (req, res) => {
-  const { firstName, lastName, email, password, phone } = req.body;
+const User = require('../models/user');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+
+// Register a new user
+const registerUser = async (req, res) => {
+  const { email, password, firstName, lastName } = req.body;
 
   try {
-    // Check if user already exists
-    const existingUser = await User.findOne({ where: { email } });
+    // Validate input (you can use Joi or express-validator here)
+
+    // Check if email already exists
+    let existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.status(400).json({
-        status: 'Bad request',
-        message: 'Email already in use',
+        status: 'error',
+        message: 'Email already exists',
       });
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const user = await User.create({
-      userId: uuidv4(),
+    // Create new user instance
+    const newUser = new User({
+      email,
+      password, // Password should be hashed before saving (bcrypt)
       firstName,
       lastName,
-      email,
-      password: hashedPassword,
-      phone,
     });
 
-    const org = await Organisation.create({
-      orgId: uuidv4(),
-      name: `${firstName}'s Organisation`,
-      description: '',
-    });
+    // Hash password
+    const salt = await bcrypt.genSalt(10);
+    newUser.password = await bcrypt.hash(password, salt);
 
-    // Associate user with organisation
-    await user.addOrganisation(org);
+    // Save user to database
+    await newUser.save();
 
-    const token = jwt.sign({ userId: user.userId }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    // Generate JWT token
+    const accessToken = jwt.sign(
+      { userId: newUser._id },
+      process.env.JWT_SECRET,
+      { expiresIn: '1h' }
+    );
 
-    res.status(201).json({
+    // Return success response with token
+    return res.status(201).json({
       status: 'success',
-      message: 'Registration successful',
+      message: 'User registered successfully',
       data: {
-        accessToken: token,
-        user: {
-          userId: user.userId,
-          firstName: user.firstName,
-          lastName: user.lastName,
-          email: user.email,
-          phone: user.phone,
-        },
+        accessToken,
       },
     });
   } catch (error) {
-    let statusCode = 400;
-    if (error.name === 'SequelizeValidationError') {
-      statusCode = 422;
-    }
-    res.status(statusCode).json({
-      status: 'Bad request',
+    console.error('Error registering user:', error);
+    return res.status(500).json({
+      status: 'error',
       message: 'Registration unsuccessful',
       errors: error.errors.map(err => ({
         field: err.path,
@@ -69,41 +63,6 @@ exports.register = async (req, res) => {
   }
 };
 
-exports.login = async (req, res) => {
-  const { email, password } = req.body;
-
-  try {
-    const user = await User.findOne({ where: { email } });
-
-    if (!user || !await bcrypt.compare(password, user.password)) {
-      return res.status(401).json({
-        status: 'Bad request',
-        message: 'Authentication failed',
-      });
-    }
-
-    const token = jwt.sign({ userId: user.userId }, process.env.JWT_SECRET, { expiresIn: '1h' });
-
-    res.status(200).json({
-      status: 'success',
-      message: 'Login successful',
-      data: {
-        accessToken: token,
-        user: {
-          userId: user.userId,
-          firstName: user.firstName,
-          lastName: user.lastName,
-          email: user.email,
-          phone: user.phone,
-        },
-      },
-    });
-  } catch (error) {
-    res.status(400).json({
-      status: 'Bad request',
-      message: 'Authentication failed',
-    });
-  }
+module.exports = {
+  registerUser,
 };
-
-// other functions remain unchanged
