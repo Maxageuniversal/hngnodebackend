@@ -1,5 +1,4 @@
-process.env.DATABASE_URL = 'postgresql://postgres:Maxwell@localhost:5432/postgres'; // Update with your local PostgreSQL settings
-
+// auth.spec.js
 const request = require('supertest');
 const app = require('../app');
 const sequelize = require('../config/database');

@@ -1,7 +1,17 @@
 // src/tests/auth.e2e.spec.js
-
 const request = require('supertest');
 const app = require('../app'); // Assuming your Express app is exported from app.js
+const sequelize = require('../config/database'); // Ensure Sequelize is correctly imported
+
+jest.setTimeout(60000);
+
+beforeAll(async () => {
+  await sequelize.sync({ force: false });
+});
+
+afterAll(async () => {
+  await sequelize.close();
+});
 
 describe('POST /auth/register', () => {
   it('should register a user successfully', async () => {
