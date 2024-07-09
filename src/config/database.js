@@ -1,9 +1,11 @@
-// src/config/database.js
-console.log(process.env.DATABASE_URL);
+// src/config/database.jsconst { Sequelize } = require('sequelize');
 
-const { Sequelize } = require('sequelize');
-
-const sequelize = new Sequelize(process.env.DATABASE_URL, {
+const sequelize = new Sequelize({
+  host: process.env.DB_HOST,
+  port: process.env.DB_PORT,
+  database: process.env.DB_DATABASE,
+  username: process.env.DB_USERNAME,
+  password: process.env.DB_PASSWORD,
   dialect: 'postgres',
   logging: false,
 });

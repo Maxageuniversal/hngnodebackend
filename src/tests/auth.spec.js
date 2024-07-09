@@ -1,4 +1,4 @@
-process.env.DATABASE_URL = 'postgresql://postgres:UyVqXRBgJsgnPptebbKGYTMYeVvXnyFH@roundhouse.proxy.rlwy.net:13115/railway';
+process.env.DATABASE_URL = 'postgresql://postgres:Maxwell@localhost:5432/postgres'; // Update with your local PostgreSQL settings
 
 const request = require('supertest');
 const app = require('../app');
