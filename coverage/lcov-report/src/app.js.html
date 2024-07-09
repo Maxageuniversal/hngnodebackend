@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">95.23% </span>
+                <span class="strong">86.36% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>20/21</span>
+                <span class='fraction'>19/22</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">40% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/2</span>
+                <span class='fraction'>2/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">95.23% </span>
+                <span class="strong">86.36% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>20/21</span>
+                <span class='fraction'>19/22</span>
             </div>
         
             
@@ -98,8 +98,11 @@
 <a name='L33'></a><a href='#L33'>33</a>
 <a name='L34'></a><a href='#L34'>34</a>
 <a name='L35'></a><a href='#L35'>35</a>
-<a name='L36'></a><a href='#L36'>36</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<a name='L36'></a><a href='#L36'>36</a>
+<a name='L37'></a><a href='#L37'>37</a>
+<a name='L38'></a><a href='#L38'>38</a>
+<a name='L39'></a><a href='#L39'>39</a>
+<a name='L40'></a><a href='#L40'>40</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -109,22 +112,14 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
@@ -133,40 +128,57 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">// APP.JS
 const cors = require('cors'); // Enable Cross-Origin Resource Sharing
 const morgan = require('morgan'); // HTTP request logger middleware
 const express = require('express');
 const bodyParser = require('body-parser');
-const dotenv = require('dotenv');
 const authRoutes = require('./routes/auth');
 const organisationRoutes = require('./routes/organisation');
-const db = require('./config/database'); // Ensure this file configures and connects to your database
+const db = require('./config/database');
 &nbsp;
-dotenv.config();
-// Initialize express app
 const app = express();
+const PORT = process.env.PORT || <span class="branch-1 cbranch-no" title="branch not covered" >3000;</span>
 &nbsp;
-// Middleware setup
-app.use(cors());
-app.use(morgan('dev'));
+// Middleware
 app.use(bodyParser.json());
 &nbsp;
-&nbsp;
-const PORT = process.env.PORT || <span class="branch-1 cbranch-no" title="branch not covered" >3000;</span>
-// Use routes
+// Routes
 app.use('/auth', authRoutes);
 app.use('/organisation', organisationRoutes);
 &nbsp;
-app.listen(PORT, () =&gt; {
-    console.log(`Server is running on port ${PORT}`);
-  });
 // Default route for testing purposes
 app.get('/', <span class="fstat-no" title="function not covered" >(r</span>eq, res) =&gt; {
 <span class="cstat-no" title="statement not covered" >  res.send('Hello World!');</span>
 });
 &nbsp;
-// Export the app
+// Error handling middleware (if needed)
+app.use(<span class="fstat-no" title="function not covered" >(e</span>rr, req, res, next) =&gt; {
+<span class="cstat-no" title="statement not covered" >  res.status(500).json({ status: 'error', message: err.message });</span>
+});
+&nbsp;
+// Database connection
+db.authenticate()
+  .then(() =&gt; console.log('Database connected...'))
+  .catch(<span class="fstat-no" title="function not covered" >er</span>r =&gt; <span class="cstat-no" title="statement not covered" >console.error('Unable to connect to the database:', err))</span>;
+&nbsp;
+app.listen(PORT, () =&gt; {
+  console.log(`Server is running on port ${PORT}`);
+});
+&nbsp;
 module.exports = app;
 &nbsp;</pre></td></tr></table></pre>
 
@@ -175,7 +187,7 @@ module.exports = app;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-07-09T13:02:20.899Z
+                at 2024-07-09T13:26:01.764Z
             </div>
         <script src="../prettify.js"></script>
         <script>
