@@ -1,10 +1,12 @@
 // src/routes/auth.js
-
 const express = require('express');
-const router = express.Router();
+const { register, login } = require('../controllers/authController');
 const authMiddleware = require('../middlewares/authMiddleware');
-const { User } = require('../models/user');
-const { Organisation } = require('../models/organisation');
+
+const router = express.Router();
+
+router.post('/register', register);
+router.post('/login', login);
 
 // Example protected route to get user's own record
 router.get('/api/users/:id', authMiddleware, async (req, res) => {
