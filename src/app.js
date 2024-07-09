@@ -3,33 +3,37 @@ const cors = require('cors'); // Enable Cross-Origin Resource Sharing
 const morgan = require('morgan'); // HTTP request logger middleware
 const express = require('express');
 const bodyParser = require('body-parser');
-const dotenv = require('dotenv');
 const authRoutes = require('./routes/auth');
 const organisationRoutes = require('./routes/organisation');
-const db = require('./config/database'); // Ensure this file configures and connects to your database
+const db = require('./config/database');
 
-dotenv.config();
-// Initialize express app
 const app = express();
+const PORT = process.env.PORT || 3000;
 
-// Middleware setup
-app.use(cors());
-app.use(morgan('dev'));
+// Middleware
 app.use(bodyParser.json());
 
-
-const PORT = process.env.PORT || 3000;
-// Use routes
+// Routes
 app.use('/auth', authRoutes);
 app.use('/organisation', organisationRoutes);
 
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-  });
 // Default route for testing purposes
 app.get('/', (req, res) => {
   res.send('Hello World!');
 });
 
-// Export the app
+// Error handling middleware (if needed)
+app.use((err, req, res, next) => {
+  res.status(500).json({ status: 'error', message: err.message });
+});
+
+// Database connection
+db.authenticate()
+  .then(() => console.log('Database connected...'))
+  .catch(err => console.error('Unable to connect to the database:', err));
+
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
+
 module.exports = app;
