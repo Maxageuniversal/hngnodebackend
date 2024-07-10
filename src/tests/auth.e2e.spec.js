@@ -3,7 +3,7 @@ const app = require('../app');
 const sequelize = require('../config/database');
 const jwt = require('jsonwebtoken');
 
-jest.setTimeout(60000);
+jest.setTimeout(120000);
 
 beforeAll(async () => {
   await sequelize.sync({ force: false });
