@@ -1,27 +1,21 @@
-// src/config/database.js
-
 const { Sequelize } = require('sequelize');
-require('dotenv').config(); // Ensure dotenv is correctly required for environment variables
+require('dotenv').config();
 
-// Update with your local PostgreSQL settings
-const sequelize = new Sequelize({
-  dialect: 'postgres',
-  host: process.env.DB_HOST,
-  port: process.env.DB_PORT,
-  database: process.env.DB_DATABASE,
-  username: process.env.DB_USERNAME,
-  password: process.env.DB_PASSWORD,
-  logging: false, // Disable logging to console
-});
+console.log("DB_HOST:", process.env.DB_HOST);
+console.log("DB_PORT:", process.env.DB_PORT);
+console.log("DB_DATABASE:", process.env.DB_DATABASE);
+console.log("DB_USERNAME:", process.env.DB_USERNAME);
+console.log("DB_PASSWORD:", process.env.DB_PASSWORD);
 
-// Test the connection to the database
-(async () => {
-  try {
-    await sequelize.authenticate();
-    console.log('Database connection has been established successfully.');
-  } catch (error) {
-    console.error('Unable to connect to the database:', error);
+const sequelize = new Sequelize(
+  String(process.env.DB_DATABASE),
+  String(process.env.DB_USERNAME),
+  String(process.env.DB_PASSWORD),
+  {
+    host: String(process.env.DB_HOST),
+    dialect: 'postgres',
+    port: parseInt(process.env.DB_PORT, 10),
   }
-})();
+);
 
 module.exports = sequelize;

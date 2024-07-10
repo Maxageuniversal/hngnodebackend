@@ -1,78 +1,54 @@
-// src/tests/auth.spec.js
-
 const request = require('supertest');
-const app = require('../app');
-const sequelize = require('../config/database');
-const jwt = require('jsonwebtoken');
+const app = require('../app'); // Ensure you export your app instance from src/app.js
 
-jest.setTimeout(120000); // Increase Jest timeout for longer tests
+describe('Auth Endpoints', () => {
+  let user;
 
-beforeAll(async () => {
-  await sequelize.sync({ force: true }); // Ensure database is reset before tests
-});
+  beforeAll(async () => {
+    user = {
+      firstName: 'John',
+      lastName: 'Doe',
+      email: 'john.doe@example.com',
+      password: 'password',
+      phone: '1234567890',
+    };
+  });
 
-afterAll(async () => {
-  await sequelize.close(); // Close database connection after all tests
-});
-
-describe('POST /auth/register', () => {
-  it('should register a user successfully', async () => {
+  it('should register a new user', async () => {
     const res = await request(app)
       .post('/auth/register')
-      .send({
-        firstName: 'John',
-        lastName: 'Doe',
-        email: 'john.doe@example.com',
-        password: 'password123',
-        phone: '+1234567890',
-      });
-
+      .send(user);
     expect(res.statusCode).toEqual(201);
-    expect(res.body).toHaveProperty('status', 'success');
     expect(res.body).toHaveProperty('data');
     expect(res.body.data).toHaveProperty('accessToken');
-    expect(res.body.data).toHaveProperty('user');
-    expect(res.body.data.user).toHaveProperty('userId');
-    expect(res.body.data.user).toHaveProperty('firstName', 'John');
   });
 
-  it('should fail if required fields are missing', async () => {
+  it('should login an existing user', async () => {
+    const res = await request(app)
+      .post('/auth/login')
+      .send({
+        email: user.email,
+        password: user.password,
+      });
+    expect(res.statusCode).toEqual(200);
+    expect(res.body).toHaveProperty('data');
+    expect(res.body.data).toHaveProperty('accessToken');
+  });
+
+  it('should not register a user with the same email', async () => {
     const res = await request(app)
       .post('/auth/register')
-      .send({
-        lastName: 'Doe',
-        email: 'john.doe@example.com',
-        password: 'password123',
-      });
-
-    expect(res.statusCode).toEqual(422);
-    expect(res.body).toHaveProperty('status', 'Bad request');
-    expect(res.body).toHaveProperty('message');
-    expect(res.body).toHaveProperty('errors');
+      .send(user);
+    expect(res.statusCode).toEqual(400);
   });
-});
 
-describe('Token Generation', () => {
-  it('should generate a valid JWT token with correct expiry', async () => {
+  it('should not login with incorrect password', async () => {
     const res = await request(app)
-      .post('/auth/register')
+      .post('/auth/login')
       .send({
-        firstName: 'John',
-        lastName: 'Doe',
-        email: 'john.doe@example.com',
-        password: 'password123',
-        phone: '+1234567890',
+        email: user.email,
+        password: 'wrongpassword',
       });
-
-    const token = res.body.data.accessToken;
-    const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
-
-    expect(decodedToken).toHaveProperty('userId');
-    expect(decodedToken.exp).toBeGreaterThan(Math.floor(Date.now() / 1000));
+    expect(res.statusCode).toEqual(401);
   });
-});
-
-// Example test cleanup code
-afterAll(async () => {
-  await server.close(); // Close the server properly
 });

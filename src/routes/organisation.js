@@ -1,12 +1,8 @@
-// organisation.js
 const express = require('express');
-const router = express.Router();
+const { getOrganisations } = require('../controllers/organisationController');
 const authMiddleware = require('../middlewares/authMiddleware');
-const organisationController = require('../controllers/organisationController');
+const router = express.Router();
 
-router.get('/', authMiddleware, organisationController.getOrganisations);
-router.get('/:orgId', authMiddleware, organisationController.getOrganisation);
-router.post('/', authMiddleware, organisationController.createOrganisation);
-router.post('/:orgId/users', authMiddleware, organisationController.addUserToOrganisation);
+router.get('/', authMiddleware, getOrganisations);
 
 module.exports = router;

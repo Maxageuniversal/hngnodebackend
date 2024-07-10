@@ -3,7 +3,7 @@ const app = require('../app');
 const sequelize = require('../config/database');
 const jwt = require('jsonwebtoken');
 
-jest.setTimeout(120000); // Increase Jest timeout for longer tests
+jest.setTimeout(60000); // Increase Jest timeout for longer tests
 
 beforeAll(async () => {
   await sequelize.sync({ force: true }); // Ensure database is reset before tests

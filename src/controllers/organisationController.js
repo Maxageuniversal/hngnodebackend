@@ -1,73 +1,20 @@
-// organisationController.js
-const { Organisation, User } = require('../models/organisation');
-const { v4: uuidv4 } = require('uuid');
+const Organisation = require('../models/organisation');
 
-exports.getOrganisations = async (req, res) => {
-  // Your implementation
-};
-
-exports.getOrganisation = async (req, res) => {
-  // Your implementation
-};
-
-exports.createOrganisation = async (req, res) => {
-  const { name, description } = req.body;
-
+const getOrganisations = async (req, res) => {
   try {
-    const userId = req.user.userId; // Ensure you have user information in the request
-    const organisation = await Organisation.create({
-      orgId: uuidv4(),
-      name,
-      description,
-      userId // Associate organisation with user
-    });
-
-    res.status(201).json({
-      status: 'success',
-      message: 'Organisation created successfully',
-      data: organisation
-    });
-  } catch (error) {
-    res.status(500).json({
-      status: 'Internal Server Error',
-      message: 'Failed to create organisation.'
-    });
-  }
-};
-
-exports.addUserToOrganisation = async (req, res) => {
-  const { orgId } = req.params;
-  const { email } = req.body;
-
-  try {
-    const organisation = await Organisation.findByPk(orgId);
-    if (!organisation) {
-      return res.status(404).json({
-        status: 'Not Found',
-        message: 'Organisation not found.'
-      });
-    }
-
-    const user = await User.findOne({ where: { email } });
-    if (!user) {
-      return res.status(404).json({
-        status: 'Not Found',
-        message: 'User not found.'
-      });
-    }
-
-    await organisation.addUser(user);
-
+    const organisations = await Organisation.findAll({ where: { UserId: req.user.id } });
     res.status(200).json({
-      status: 'success',
-      message: 'User added to organisation successfully',
+      status: "success",
+      message: "Organisations retrieved successfully",
+      data: { organisations },
     });
   } catch (error) {
-    res.status(500).json({
-      status: 'Internal Server Error',
-      message: 'Failed to add user to organisation.',
+    res.status(400).json({
+      status: "Bad request",
+      message: "Error retrieving organisations",
+      statusCode: 400,
     });
   }
 };
 
-// Other controller functions
+module.exports = { getOrganisations };

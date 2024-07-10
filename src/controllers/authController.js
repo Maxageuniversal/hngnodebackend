@@ -1,80 +1,113 @@
-// src/controllers/authController.js
-
-const User = require('../models/user');
-const bcrypt = require('bcryptjs');
+const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const User = require('../models/user');
+const Organisation = require('../models/organisation');
+const { v4: uuidv4 } = require('uuid');
+require('dotenv').config();
 
-// Register a new user
-const registerUser = async (req, res) => {
-  const { email, password, firstName, lastName } = req.body;
-
+const register = async (req, res) => {
   try {
-    // Validate input (you can use Joi or express-validator here)
+    const { firstName, lastName, email, password, phone } = req.body;
 
-    // Check if email already exists
-    let existingUser = await User.findOne({ email });
-    if (existingUser) {
-      return res.status(400).json({
-        status: 'error',
-        message: 'Email already exists',
+    if (!firstName || !lastName || !email || !password) {
+      return res.status(422).json({
+        errors: [
+          { field: "firstName", message: "First name is required" },
+          { field: "lastName", message: "Last name is required" },
+          { field: "email", message: "Email is required" },
+          { field: "password", message: "Password is required" }
+        ],
       });
     }
 
-    // Create new user instance
-    const newUser = new User({
-      email,
-      password, // Password should be hashed before saving (bcrypt)
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const user = await User.create({
+      userId: uuidv4(),
       firstName,
       lastName,
+      email,
+      password: hashedPassword,
+      phone,
     });
 
-    // Hash password
-    const salt = await bcrypt.genSalt(10);
-    newUser.password = await bcrypt.hash(password, salt);
+    const orgName = `${firstName}'s Organisation`;
+    await Organisation.create({
+      orgId: uuidv4(),
+      name: orgName,
+      description: '',
+      UserId: user.id
+    });
 
-    // Save user to database
-    await newUser.save();
+    const token = jwt.sign({ userId: user.userId }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
-    // Generate JWT token
-    const accessToken = jwt.sign(
-      { userId: newUser._id },
-      process.env.JWT_SECRET,
-      { expiresIn: '1h' }
-    );
-
-    // Return success response with token
-    return res.status(201).json({
-      status: 'success',
-      message: 'User registered successfully',
+    res.status(201).json({
+      status: "success",
+      message: "Registration successful",
       data: {
-        accessToken,
+        accessToken: token,
+        user: {
+          userId: user.userId,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email,
+          phone: user.phone,
+        },
       },
     });
   } catch (error) {
-    console.error('Error registering user:', error);
-    return res.status(500).json({
-      status: 'error',
-      message: 'Registration unsuccessful',
-      errors: error.errors.map(err => ({
-        field: err.path,
-        message: err.message,
-      })),
+    res.status(400).json({
+      status: "Bad request",
+      message: "Registration unsuccessful",
+      statusCode: 400,
     });
   }
 };
 
-
-const register = async (req, res) => {
-  // Implementation of register logic
-};
-
 const login = async (req, res) => {
-  // Implementation of login logic
+  try {
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+      return res.status(422).json({
+        errors: [
+          { field: "email", message: "Email is required" },
+          { field: "password", message: "Password is required" }
+        ],
+      });
+    }
+
+    const user = await User.findOne({ where: { email } });
+    if (!user || !(await bcrypt.compare(password, user.password))) {
+      return res.status(401).json({
+        status: "Bad request",
+        message: "Authentication failed",
+        statusCode: 401,
+      });
+    }
+
+    const token = jwt.sign({ userId: user.userId }, process.env.JWT_SECRET, { expiresIn: '1h' });
+
+    res.status(200).json({
+      status: "success",
+      message: "Login successful",
+      data: {
+        accessToken: token,
+        user: {
+          userId: user.userId,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email,
+          phone: user.phone,
+        },
+      },
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: "Bad request",
+      message: "Login unsuccessful",
+      statusCode: 400,
+    });
+  }
 };
 
-module.exports = {
-  register,
-  login,
-  // other controller functions
-};
-
+module.exports = { register, login };
