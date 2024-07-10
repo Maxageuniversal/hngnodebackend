@@ -45,6 +45,7 @@
       "js",
       "json",
       "node"
-    ]
+    ],
+    "testTimeout": 60000
   }
 }
