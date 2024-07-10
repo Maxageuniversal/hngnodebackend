@@ -6,7 +6,7 @@ let server;
 
 beforeAll(async () => {
   // Start the server before running tests
-  const PORT = process.env.TEST_PORT || 3001;
+  const PORT = process.env.TEST_PORT || 3004;
   server = app.listen(PORT, () => {
     console.log(`Test server running on port ${PORT}`);
   });
@@ -14,13 +14,11 @@ beforeAll(async () => {
   await sequelize.sync({ force: true }); // Recreate database schema for tests
 });
 
+// Example of closing server after tests
 afterAll(async () => {
-  // Close the server and database connection after tests
-  await sequelize.close();
-  if (server) {
-    server.close();
-  }
+  await new Promise((resolve) => server.close(resolve));
 });
+
 
 describe('Auth Endpoints', () => {
   let user;
@@ -72,8 +70,4 @@ describe('Auth Endpoints', () => {
       });
     expect(res.statusCode).toEqual(401);
   });
-});
-
-afterAll((done) => {
-  server.close(done);
 });

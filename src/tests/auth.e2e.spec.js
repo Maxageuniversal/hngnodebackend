@@ -9,9 +9,11 @@ beforeAll(async () => {
   await sequelize.sync({ force: true }); // Ensure database is reset before tests
 });
 
+// Example of closing server after tests
 afterAll(async () => {
-  await sequelize.close(); // Close database connection after all tests
+  await new Promise((resolve) => server.close(resolve));
 });
+
 
 describe('POST /auth/register', () => {
   it('should register a user successfully', async () => {

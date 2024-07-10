@@ -14,10 +14,11 @@ app.use('/organisations', organisationRoutes);
 module.exports = app;
 
 // Define the server and environment port
-const port = process.env.NODE_ENV === 'test' ? 3001 : process.env.PORT || 3000;
+const port = process.env.NODE_ENV === 'test' ? 3004 : process.env.PORT || 3000;
 const server = app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
+
 
 module.exports = server;
 
