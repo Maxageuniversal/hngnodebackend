@@ -5,7 +5,7 @@
   "main": "src/app.js",
   "scripts": {
     "start": "node src/app.js",
-    "test": "jest --setupFiles dotenv/config --detectOpenHandles"
+    "test": "jest --setupFiles dotenv/config --detectOpenHandles --runInBand --watchAll=false --testNamePattern \"POST /auth/register\" --runTestsByPath \"C:\\Users\\MY COMPUTER\\Desktop\\hngproject-root\\src\\tests\\auth.spec.js\""
   },
   "dependencies": {
     "bcrypt": "^5.1.1",
@@ -30,11 +30,9 @@
     "testEnvironment": "node",
     "detectOpenHandles": true,
     "verbose": true,
-    "testTimeout": 120000, // Increased test timeout to 120 seconds
-    "testPathPattern": "src/tests/**/*.spec.js", // Added test path pattern to specify test files
-    "testPathIgnorePatterns": [
-      "/node_modules/",
-      "/dist/"
+    "testTimeout": 120000,
+    "testMatch": [
+      "**/tests/**/*.spec.js"
     ],
     "collectCoverage": true,
     "coverageDirectory": "coverage",
