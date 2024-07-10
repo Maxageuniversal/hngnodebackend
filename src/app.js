@@ -1,5 +1,4 @@
-//APP.JS
-const express = require('express');
+//APP.JSconst express = require('express');
 const cors = require('cors'); // Enable Cross-Origin Resource Sharing
 const morgan = require('morgan'); // HTTP request logger middleware
 const bodyParser = require('body-parser');
@@ -31,15 +30,20 @@ app.use((err, req, res, next) => {
 });
 
 // Database connection
-db.authenticate()
-  .then(() => console.log('Database connected...'))
-  .catch(err => console.error('Unable to connect to the database:', err));
+(async () => {
+  try {
+    await db.authenticate();
+    console.log('Database connected...');
+  } catch (error) {
+    console.error('Unable to connect to the database:', error);
+  }
 
-// Only start the server if not in test environment
-if (process.env.NODE_ENV !== 'test') {
-  app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-  });
-}
+  // Only start the server if not in test environment
+  if (process.env.NODE_ENV !== 'test') {
+    app.listen(PORT, () => {
+      console.log(`Server is running on port ${PORT}`);
+    });
+  }
+})();
 
 module.exports = app;

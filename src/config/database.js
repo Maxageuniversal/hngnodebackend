@@ -1,5 +1,6 @@
-// src/config/database.jsconst { Sequelize } = require('sequelize');
+// src/config/database.jsconst { Sequelize } = require('sequelize');const { Sequelize } = require('sequelize');
 const { Sequelize } = require('sequelize');
+require('dotenv').config(); // Ensure dotenv is correctly required for environment variables
 
 // Update with your local PostgreSQL settings
 const sequelize = new Sequelize({
@@ -13,14 +14,13 @@ const sequelize = new Sequelize({
 });
 
 // Test the connection to the database
-sequelize
-  .authenticate()
-  .then(() => {
+(async () => {
+  try {
+    await sequelize.authenticate();
     console.log('Database connection has been established successfully.');
-  })
-  .catch(err => {
-    console.error('Unable to connect to the database:', err);
-  });
+  } catch (error) {
+    console.error('Unable to connect to the database:', error);
+  }
+})();
 
 module.exports = sequelize;
-
