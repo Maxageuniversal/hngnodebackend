@@ -1,10 +1,31 @@
 const request = require('supertest');
 const app = require('../app'); // Ensure you export your app instance from src/app.js
+const { sequelize } = require('../config/database');
+
+let server;
+
+beforeAll(async () => {
+  // Start the server before running tests
+  const PORT = process.env.TEST_PORT || 3001;
+  server = app.listen(PORT, () => {
+    console.log(`Test server running on port ${PORT}`);
+  });
+
+  await sequelize.sync({ force: true }); // Recreate database schema for tests
+});
+
+afterAll(async () => {
+  // Close the server and database connection after tests
+  await sequelize.close();
+  if (server) {
+    server.close();
+  }
+});
 
 describe('Auth Endpoints', () => {
   let user;
 
-  beforeAll(async () => {
+  beforeAll(() => {
     user = {
       firstName: 'John',
       lastName: 'Doe',
@@ -51,4 +72,8 @@ describe('Auth Endpoints', () => {
       });
     expect(res.statusCode).toEqual(401);
   });
+});
+
+afterAll((done) => {
+  server.close(done);
 });

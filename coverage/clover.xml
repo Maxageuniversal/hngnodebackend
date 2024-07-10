@@ -1,136 +1,104 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1720609690630" clover="3.2.0">
-  <project timestamp="1720609690631" name="All files">
-    <metrics statements="137" coveredstatements="71" conditionals="22" coveredconditionals="2" methods="16" coveredmethods="2" elements="175" coveredelements="75" complexity="0" loc="137" ncloc="137" packages="6" files="9" classes="9"/>
+<coverage generated="1720612318981" clover="3.2.0">
+  <project timestamp="1720612318981" name="All files">
+    <metrics statements="92" coveredstatements="55" conditionals="20" coveredconditionals="1" methods="8" coveredmethods="0" elements="120" coveredelements="56" complexity="0" loc="92" ncloc="92" packages="6" files="9" classes="9"/>
     <package name="src">
-      <metrics statements="30" coveredstatements="20" conditionals="4" coveredconditionals="2" methods="4" coveredmethods="0"/>
+      <metrics statements="14" coveredstatements="10" conditionals="4" coveredconditionals="1" methods="4" coveredmethods="0"/>
       <file name="app.js" path="C:\Users\MY COMPUTER\Desktop\hngproject-root\src\app.js">
-        <metrics statements="30" coveredstatements="20" conditionals="4" coveredconditionals="2" methods="4" coveredmethods="0"/>
+        <metrics statements="14" coveredstatements="10" conditionals="4" coveredconditionals="1" methods="4" coveredmethods="0"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="9" count="1" type="stmt"/>
+        <line num="11" count="1" type="stmt"/>
+        <line num="12" count="1" type="stmt"/>
+        <line num="16" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="17" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="20" count="1" type="stmt"/>
+        <line num="22" count="0" type="stmt"/>
+        <line num="23" count="0" type="stmt"/>
+        <line num="27" count="0" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.config">
+      <metrics statements="9" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="database.js" path="C:\Users\MY COMPUTER\Desktop\hngproject-root\src\config\database.js">
+        <metrics statements="9" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="10" count="1" type="stmt"/>
+        <line num="21" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.controllers">
+      <metrics statements="37" coveredstatements="12" conditionals="14" coveredconditionals="0" methods="3" coveredmethods="0"/>
+      <file name="authController.js" path="C:\Users\MY COMPUTER\Desktop\hngproject-root\src\controllers\authController.js">
+        <metrics statements="30" coveredstatements="9" conditionals="14" coveredconditionals="0" methods="2" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
         <line num="4" count="1" type="stmt"/>
         <line num="5" count="1" type="stmt"/>
         <line num="6" count="1" type="stmt"/>
-        <line num="7" count="1" type="stmt"/>
-        <line num="9" count="1" type="stmt"/>
-        <line num="10" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="13" count="1" type="stmt"/>
-        <line num="14" count="1" type="stmt"/>
-        <line num="15" count="1" type="stmt"/>
-        <line num="18" count="1" type="stmt"/>
-        <line num="19" count="1" type="stmt"/>
-        <line num="20" count="1" type="stmt"/>
-        <line num="23" count="1" type="stmt"/>
-        <line num="24" count="0" type="stmt"/>
-        <line num="28" count="1" type="stmt"/>
-        <line num="29" count="0" type="stmt"/>
-        <line num="33" count="1" type="stmt"/>
-        <line num="34" count="0" type="stmt"/>
-        <line num="35" count="0" type="stmt"/>
-        <line num="36" count="0" type="stmt"/>
-        <line num="37" count="0" type="stmt"/>
-        <line num="39" count="0" type="stmt"/>
-        <line num="41" count="0" type="stmt"/>
-        <line num="42" count="0" type="stmt"/>
-        <line num="47" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="48" count="0" type="stmt"/>
-        <line num="51" count="1" type="stmt"/>
-      </file>
-    </package>
-    <package name="src.config">
-      <metrics statements="11" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-      <file name="database.js" path="C:\Users\MY COMPUTER\Desktop\hngproject-root\src\config\database.js">
-        <metrics statements="11" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="2" count="1" type="stmt"/>
-        <line num="5" count="1" type="stmt"/>
-        <line num="16" count="1" type="stmt"/>
-        <line num="17" count="1" type="stmt"/>
-        <line num="18" count="1" type="stmt"/>
-        <line num="19" count="1" type="stmt"/>
-        <line num="21" count="0" type="stmt"/>
-        <line num="22" count="0" type="stmt"/>
-        <line num="26" count="1" type="stmt"/>
-        <line num="28" count="1" type="stmt"/>
-      </file>
-    </package>
-    <package name="src.controllers">
-      <metrics statements="45" coveredstatements="13" conditionals="6" coveredconditionals="0" methods="8" coveredmethods="1"/>
-      <file name="authController.js" path="C:\Users\MY COMPUTER\Desktop\hngproject-root\src\controllers\authController.js">
-        <metrics statements="21" coveredstatements="7" conditionals="2" coveredconditionals="0" methods="4" coveredmethods="1"/>
-        <line num="3" count="1" type="stmt"/>
-        <line num="4" count="1" type="stmt"/>
-        <line num="5" count="1" type="stmt"/>
         <line num="8" count="1" type="stmt"/>
         <line num="9" count="0" type="stmt"/>
-        <line num="11" count="0" type="stmt"/>
-        <line num="15" count="0" type="stmt"/>
-        <line num="16" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="17" count="0" type="stmt"/>
+        <line num="10" count="0" type="stmt"/>
+        <line num="12" count="0" type="cond" truecount="0" falsecount="6"/>
+        <line num="13" count="0" type="stmt"/>
+        <line num="23" count="0" type="stmt"/>
         <line num="24" count="0" type="stmt"/>
-        <line num="32" count="0" type="stmt"/>
         <line num="33" count="0" type="stmt"/>
-        <line num="36" count="0" type="stmt"/>
-        <line num="39" count="0" type="stmt"/>
-        <line num="46" count="0" type="stmt"/>
-        <line num="54" count="0" type="stmt"/>
-        <line num="55" count="0" type="stmt"/>
+        <line num="34" count="0" type="stmt"/>
+        <line num="41" count="0" type="stmt"/>
+        <line num="43" count="0" type="stmt"/>
         <line num="58" count="0" type="stmt"/>
-        <line num="67" count="1" type="stmt"/>
-        <line num="71" count="1" type="stmt"/>
-        <line num="75" count="1" type="stmt"/>
+        <line num="66" count="1" type="stmt"/>
+        <line num="67" count="0" type="stmt"/>
+        <line num="68" count="0" type="stmt"/>
+        <line num="70" count="0" type="cond" truecount="0" falsecount="4"/>
+        <line num="71" count="0" type="stmt"/>
+        <line num="79" count="0" type="stmt"/>
+        <line num="80" count="0" type="cond" truecount="0" falsecount="4"/>
+        <line num="81" count="0" type="stmt"/>
+        <line num="88" count="0" type="stmt"/>
+        <line num="90" count="0" type="stmt"/>
+        <line num="105" count="0" type="stmt"/>
+        <line num="113" count="1" type="stmt"/>
       </file>
       <file name="organisationController.js" path="C:\Users\MY COMPUTER\Desktop\hngproject-root\src\controllers\organisationController.js">
-        <metrics statements="24" coveredstatements="6" conditionals="4" coveredconditionals="0" methods="4" coveredmethods="0"/>
-        <line num="2" count="1" type="stmt"/>
+        <metrics statements="7" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <line num="1" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
-        <line num="5" count="1" type="stmt"/>
-        <line num="9" count="1" type="stmt"/>
-        <line num="13" count="1" type="stmt"/>
-        <line num="14" count="0" type="stmt"/>
-        <line num="16" count="0" type="stmt"/>
-        <line num="17" count="0" type="stmt"/>
-        <line num="18" count="0" type="stmt"/>
-        <line num="25" count="0" type="stmt"/>
-        <line num="31" count="0" type="stmt"/>
-        <line num="38" count="1" type="stmt"/>
-        <line num="39" count="0" type="stmt"/>
-        <line num="40" count="0" type="stmt"/>
-        <line num="42" count="0" type="stmt"/>
-        <line num="43" count="0" type="stmt"/>
-        <line num="44" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="45" count="0" type="stmt"/>
-        <line num="51" count="0" type="stmt"/>
-        <line num="52" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="53" count="0" type="stmt"/>
-        <line num="59" count="0" type="stmt"/>
-        <line num="61" count="0" type="stmt"/>
-        <line num="66" count="0" type="stmt"/>
+        <line num="4" count="0" type="stmt"/>
+        <line num="5" count="0" type="stmt"/>
+        <line num="6" count="0" type="stmt"/>
+        <line num="12" count="0" type="stmt"/>
+        <line num="20" count="1" type="stmt"/>
       </file>
     </package>
     <package name="src.middlewares">
-      <metrics statements="18" coveredstatements="4" conditionals="8" coveredconditionals="0" methods="2" coveredmethods="0"/>
+      <metrics statements="12" coveredstatements="4" conditionals="2" coveredconditionals="0" methods="1" coveredmethods="0"/>
       <file name="authMiddleware.js" path="C:\Users\MY COMPUTER\Desktop\hngproject-root\src\middlewares\authMiddleware.js">
-        <metrics statements="18" coveredstatements="4" conditionals="8" coveredconditionals="0" methods="2" coveredmethods="0"/>
-        <line num="3" count="1" type="stmt"/>
+        <metrics statements="12" coveredstatements="4" conditionals="2" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="2" count="1" type="stmt"/>
         <line num="4" count="1" type="stmt"/>
-        <line num="7" count="1" type="stmt"/>
-        <line num="8" count="0" type="stmt"/>
-        <line num="9" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="11" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="5" count="0" type="stmt"/>
+        <line num="6" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="7" count="0" type="stmt"/>
+        <line num="10" count="0" type="stmt"/>
+        <line num="11" count="0" type="stmt"/>
         <line num="12" count="0" type="stmt"/>
+        <line num="13" count="0" type="stmt"/>
         <line num="15" count="0" type="stmt"/>
-        <line num="16" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="17" count="0" type="stmt"/>
-        <line num="20" count="0" type="stmt"/>
-        <line num="21" count="0" type="stmt"/>
-        <line num="22" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="23" count="0" type="stmt"/>
-        <line num="25" count="0" type="stmt"/>
-        <line num="26" count="0" type="stmt"/>
-        <line num="28" count="0" type="stmt"/>
-        <line num="33" count="1" type="stmt"/>
+        <line num="19" count="1" type="stmt"/>
       </file>
     </package>
     <package name="src.models">
@@ -147,41 +115,28 @@
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
         <line num="4" count="1" type="stmt"/>
-        <line num="48" count="1" type="stmt"/>
+        <line num="32" count="1" type="stmt"/>
       </file>
     </package>
     <package name="src.routes">
-      <metrics statements="25" coveredstatements="17" conditionals="4" coveredconditionals="0" methods="1" coveredmethods="0"/>
+      <metrics statements="12" coveredstatements="12" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="auth.js" path="C:\Users\MY COMPUTER\Desktop\hngproject-root\src\routes\auth.js">
-        <metrics statements="16" coveredstatements="8" conditionals="4" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="8" count="1" type="stmt"/>
+      </file>
+      <file name="organisation.js" path="C:\Users\MY COMPUTER\Desktop\hngproject-root\src\routes\organisation.js">
+        <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
         <line num="4" count="1" type="stmt"/>
         <line num="6" count="1" type="stmt"/>
         <line num="8" count="1" type="stmt"/>
-        <line num="9" count="1" type="stmt"/>
-        <line num="12" count="1" type="stmt"/>
-        <line num="13" count="0" type="stmt"/>
-        <line num="15" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="16" count="0" type="stmt"/>
-        <line num="23" count="0" type="stmt"/>
-        <line num="24" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="25" count="0" type="stmt"/>
-        <line num="31" count="0" type="stmt"/>
-        <line num="43" count="0" type="stmt"/>
-        <line num="50" count="1" type="stmt"/>
-      </file>
-      <file name="organisation.js" path="C:\Users\MY COMPUTER\Desktop\hngproject-root\src\routes\organisation.js">
-        <metrics statements="9" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="2" count="1" type="stmt"/>
-        <line num="3" count="1" type="stmt"/>
-        <line num="4" count="1" type="stmt"/>
-        <line num="5" count="1" type="stmt"/>
-        <line num="7" count="1" type="stmt"/>
-        <line num="8" count="1" type="stmt"/>
-        <line num="9" count="1" type="stmt"/>
-        <line num="10" count="1" type="stmt"/>
-        <line num="12" count="1" type="stmt"/>
       </file>
     </package>
   </project>

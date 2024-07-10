@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">81.81% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>9/11</span>
+                <span class='fraction'>9/9</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/1</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">81.81% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>9/11</span>
+                <span class='fraction'>9/9</span>
             </div>
         
             
@@ -84,67 +84,46 @@
 <a name='L19'></a><a href='#L19'>19</a>
 <a name='L20'></a><a href='#L20'>20</a>
 <a name='L21'></a><a href='#L21'>21</a>
-<a name='L22'></a><a href='#L22'>22</a>
-<a name='L23'></a><a href='#L23'>23</a>
-<a name='L24'></a><a href='#L24'>24</a>
-<a name='L25'></a><a href='#L25'>25</a>
-<a name='L26'></a><a href='#L26'>26</a>
-<a name='L27'></a><a href='#L27'>27</a>
-<a name='L28'></a><a href='#L28'>28</a>
-<a name='L29'></a><a href='#L29'>29</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L22'></a><a href='#L22'>22</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const { Sequelize } = require('sequelize');
-require('dotenv').config(); // Ensure dotenv is correctly required for environment variables
+require('dotenv').config();
 &nbsp;
-// Update with your local PostgreSQL settings
-const sequelize = new Sequelize({
-  dialect: 'postgres',
-  host: process.env.DB_HOST,
-  port: process.env.DB_PORT,
-  database: process.env.DB_DATABASE,
-  username: process.env.DB_USERNAME,
-  password: process.env.DB_PASSWORD,
-  logging: false, // Disable logging to console
-});
+console.log("DB_HOST:", process.env.DB_HOST);
+console.log("DB_PORT:", process.env.DB_PORT);
+console.log("DB_DATABASE:", process.env.DB_DATABASE);
+console.log("DB_USERNAME:", process.env.DB_USERNAME);
+console.log("DB_PASSWORD:", process.env.DB_PASSWORD);
 &nbsp;
-// Function to connect to the database asynchronously
-const connectToDatabase = async () =&gt; {
-  try {
-    await sequelize.authenticate();
-    console.log('Database connection has been established successfully.');
-  } catch (error) {
-<span class="cstat-no" title="statement not covered" >    console.error('Unable to connect to the database:', error);</span>
-<span class="cstat-no" title="statement not covered" >    process.exit(1); </span>// Exit process if unable to connect to the database
+const sequelize = new Sequelize(
+  String(process.env.DB_DATABASE),
+  String(process.env.DB_USERNAME),
+  String(process.env.DB_PASSWORD),
+  {
+    host: String(process.env.DB_HOST),
+    dialect: 'postgres',
+    port: parseInt(process.env.DB_PORT, 10),
   }
-};
-&nbsp;
-connectToDatabase(); // Call the function to connect to the database
+);
 &nbsp;
 module.exports = sequelize;
 &nbsp;</pre></td></tr></table></pre>
@@ -154,7 +133,7 @@ module.exports = sequelize;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-07-10T11:08:10.472Z
+                at 2024-07-10T11:51:58.878Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

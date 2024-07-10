@@ -45,6 +45,7 @@
       "js",
       "json",
       "node"
-    ]
+    ],
+    "setupFiles": ["./src/jest.setup.js"]
   }
 }
