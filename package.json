@@ -30,6 +30,8 @@
     "testEnvironment": "node",
     "detectOpenHandles": true,
     "verbose": true,
+    "testTimeout": 120000, // Increased test timeout to 120 seconds
+    "testPathPattern": "src/tests/**/*.spec.js", // Added test path pattern to specify test files
     "testPathIgnorePatterns": [
       "/node_modules/",
       "/dist/"
@@ -45,7 +47,6 @@
       "js",
       "json",
       "node"
-    ],
-    "testTimeout": 120000 // Increase global timeout to 120 seconds
+    ]
   }
 }
