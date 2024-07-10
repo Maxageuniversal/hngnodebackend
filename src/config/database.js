@@ -1,4 +1,5 @@
-// src/config/database.jsconst { Sequelize } = require('sequelize');const { Sequelize } = require('sequelize');
+// src/config/database.js
+
 const { Sequelize } = require('sequelize');
 require('dotenv').config(); // Ensure dotenv is correctly required for environment variables
 

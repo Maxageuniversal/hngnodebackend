@@ -1,4 +1,6 @@
-//APP.JSconst express = require('express');
+// src/app.js
+
+const express = require('express');
 const cors = require('cors'); // Enable Cross-Origin Resource Sharing
 const morgan = require('morgan'); // HTTP request logger middleware
 const bodyParser = require('body-parser');
