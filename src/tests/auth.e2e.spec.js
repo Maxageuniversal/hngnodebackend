@@ -1,3 +1,4 @@
+//auth.e2e.spec.js
 const request = require('supertest');
 const app = require('../app');
 const sequelize = require('../config/database');

@@ -1,3 +1,4 @@
+//APP.JS
 const express = require('express');
 const cors = require('cors'); // Enable Cross-Origin Resource Sharing
 const morgan = require('morgan'); // HTTP request logger middleware
@@ -17,7 +18,7 @@ app.use(morgan('dev'));
 // Routes
 app.use(express.json());
 app.use('/auth', authRoutes);
-app.use('/organisation', organisationRoutes);
+app.use('/api/organisations', organisationRoutes); // Assuming endpoint is /api/organisations
 
 // Default route for testing purposes
 app.get('/', (req, res) => {
