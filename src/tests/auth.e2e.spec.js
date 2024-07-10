@@ -1,12 +1,9 @@
-// src/tests/auth.e2e.spec.js
-const bcrypt = require('bcryptjs');
-
 const request = require('supertest');
 const app = require('../app');
 const sequelize = require('../config/database');
 const jwt = require('jsonwebtoken');
 
-jest.setTimeout(60000);
+jest.setTimeout(40000);
 
 beforeAll(async () => {
   await sequelize.sync({ force: false });

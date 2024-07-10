@@ -1,5 +1,3 @@
-// src/tests/auth.spec.js
-
 const request = require('supertest');
 const app = require('../app'); // Assuming your Express app is configured in app.js
 

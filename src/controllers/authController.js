@@ -63,6 +63,18 @@ const registerUser = async (req, res) => {
   }
 };
 
-module.exports = {
-  registerUser,
+
+const register = async (req, res) => {
+  // Implementation of register logic
 };
+
+const login = async (req, res) => {
+  // Implementation of login logic
+};
+
+module.exports = {
+  register,
+  login,
+  // other controller functions
+};
+
